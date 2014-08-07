@@ -2,7 +2,7 @@
 session_start();
 require('settings.php');
 if ($_SESSION['login'] ==='true') { 
-header('Location: http://'.$domain.'/cms/admin.php');
+//header('Location: http://'.$domain.'/cms/admin.php');
 }else {
 header('Location: http://'.$domain.'/cms/index.php');	
 die ();

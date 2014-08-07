@@ -1,5 +1,6 @@
 <?php
 $rpcusername = $_POST['rpcusername'];
+$language = $_POST['language'];
 $rpcpassword1 = $_POST['rpcpassword1'];
 session_start();
 require('settings.php');
@@ -43,13 +44,18 @@ echo '<hr><div align="center" class="jumbotron">
         <h1>Login</h1>
        <form class="navbar-form" action="index.php" method="post"><div class="form-group">';
 echo 'RPC username: <input class="form-control" name="rpcusername" type="text" size="20"><br> 
-	  RPC password: <input class="form-control" name="rpcpassword1" type="password" size="20"><br><br>';
-	  echo '<input style="margin-left:20px" class="btn btn-primary" type="submit" value="Войти"></div></div></form>
+	  RPC password: <input class="form-control" name="rpcpassword1" type="password" size="20"><br>';
+	  echo '<div>Language <select class="form-control" name="language">
+  <option value="en" >English</option>
+  <option value="ru" >Русский</option>
+</select></div>';
+	  echo '<br><br><input style="margin-left:20px" class="btn btn-primary" type="submit" value="Войти"></div></div></form>
       
 ';
 }else{
 if ($rpcusername == $rpcuser && $rpcpassword1 == $rpcpassword) { 
 	$_SESSION['login']='true';
+	$_SESSION['language']=$language;
 header('Location: http://'.$domain.'/cms/admin.php');
 }else {
 //echo $rpcpassword .' / '.$rpcpassword1 . ' / '.$rpcuser.' / '.$rpcusername;

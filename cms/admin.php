@@ -1,5 +1,14 @@
 <?php
 session_start();
+require('language.php');
+require('settings.php');
+if ($_SESSION['login'] ==='true') { 
+//header('Location: http://'.$domain.'/cms/admin.php');
+}else {
+header('Location: http://'.$domain.'/cms/index.php');	
+die ();
+}
+
 echo '<!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -30,28 +39,28 @@ echo '<!DOCTYPE html>
 
 
 echo '<hr><div class="">
-        <h1>Ваши RSS подписки</h1>
+        <h1>'.$Lang_rsssubscribes.'</h1>
        
       
 ';
-require('settings.php');
+
 $sql="SELECT * 
 FROM  `rss`";
 
 echo '<table class="table">';
-echo '<tr><td>Название RSS</td><td>URL</td><td>Включено</td><td>Последнее обновление</td><td>Частота обновления</td><td>Публиковать от имени</td><td></td><td></td><td></td></tr>';
+echo '<tr><td>'.$Lang_table_title_Rss_Name.'</td><td>URL</td><td>'.$Lang_table_title_On.'</td><td>'.$Lang_table_title_Last_Feed_Update.'</td><td>'.$Lang_table_title_refres_rate.'</td><td>'.$Lang_table_title_Publish_from.'</td><td></td><td></td><td></td></tr>';
 $result=mysql_query($sql) or die(mysql_error());
 		   	while ($row = mysql_fetch_array($result)) {
 if ($row['active'] == '1') {
 $trclass="success";
-$activeTXT='Да';
-$activeTXT2='Отключить';
+$activeTXT=$Lang_table_yes;
+$activeTXT2=$Lang_table_off;
 $activeTXT3=0;
 $activeTXTClass='btn btn-warning';
 } else { 
 $trclass="warning";
-$activeTXT='Нет';
-$activeTXT2='Включить';
+$activeTXT=$Lang_table_no;
+$activeTXT2=$Lang_table_on;
 $activeTXT3=1;
 $activeTXTClass='btn btn-success';
 }		   	
@@ -63,8 +72,8 @@ echo '<td>'.$row['lastupdate'].'</td>';
 echo '<td>'.$row['updatetime'].'</td>';
 echo '<td>'.$row['account'].'</td>';
 echo '<td><a class="'.$activeTXTClass.'" href="edit.php?action=active&id='.$row['id'].'&active='.$activeTXT3.'">'.$activeTXT2.'</a></td>';
-//echo '<td><a class="btn btn-primary" href="edit.php?action=edit&id='.$row['id'].'">Изменить</a></td>';
-echo '<td><a class="btn btn-danger" href="edit.php?action=del&id='.$row['id'].'">Удалить</a></td>';
+//echo '<td><a class="btn btn-primary" href="edit.php?action=edit&id='.$row['id'].'">'.$Lang_table_change.'</a></td>';
+echo '<td><a class="btn btn-danger" href="edit.php?action=del&id='.$row['id'].'">'.$Lang_table_del.'</a></td>';
 echo '</tr>';
 unset($trclass);
 			   										  } 
@@ -77,14 +86,14 @@ document.getElementById("hide").style.display="block"
 </script>';
 echo '<hr>
 <div class="well">
-<div align="center" id="hide2"><a class="btn btn-lg btn-primary" onclick="hideshow();">Добавить RSS поток</a></div>
+<div align="center" id="hide2"><a class="btn btn-lg btn-primary" onclick="hideshow();">'.$Lang_table_add_rss_feed.'</a></div>
 <div id="hide" style="display:none"><form class="navbar-form" action="edit.php" method="post"><div class="form-group">';
-echo 'Название RSS: <input class="form-control" name="name" type="text" size="20"> 
+echo $Lang_table_add_rss_name.': <input class="form-control" name="name" type="text" size="20"> 
 	  URL: <input class="form-control" name="url" type="text" size="20"> 
-	  Публиковать от имени: <input class="form-control" name="account" type="text" size="20">
+	  '.$Lang_table_title_Publish_from.': <input class="form-control" name="account" type="text" size="20">
 	  <!--(Не реализовано) Частота обновления:  <input name="updatetime" type="text" size="20">-->
-	  Включен ? <input class="form-control" name="active" type="checkbox" size="20"> ';
-echo '<input style="margin-left:20px" class="btn btn-default" type="submit" value="Добавить"></div></div></form></div>';
+	  '.$Lang_table_add_rss_on.' ? <input class="form-control" name="active" type="checkbox" size="20"> ';
+echo '<input style="margin-left:20px" class="btn btn-default" type="submit" value="'.$Lang_table_add_rss_add.'"></div></div></form></div>';
 
 
     
