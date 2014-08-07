@@ -5,7 +5,7 @@ twister-rss
 
 PHP scripts for tranfering RSS feeds to twister
 
-Now in russian language, soon - multilanguage.
+Support English/Russian language.
 
 INSTALL
 ===========
